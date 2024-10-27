@@ -9,7 +9,11 @@ export default function FooterComponent() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <img src="./techworld-logo.png" className="h-12 w-12" />
+                <img
+                  src="./techworld-logo.png"
+                  className="h-12 w-12"
+                  alt="	icon image of techworld insights"
+                />
                 <span className="font-bold text-xl">TechWorld Insight</span>
               </div>
               <p className="text-sm text-muted-foreground">
@@ -53,7 +57,7 @@ export default function FooterComponent() {
               <ul className="space-y-2">
                 <li>
                   <Link
-                    href="/about"
+                    href="/about-us"
                     className="text-sm text-muted-foreground hover:text-foreground"
                   >
                     About Us

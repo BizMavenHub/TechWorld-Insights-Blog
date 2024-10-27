@@ -1,11 +1,10 @@
-// Components
-import NavbarComponent from "@/components/NavbarComponent";
-import FooterComponent from "@/components/FooterComponent";
-
 // Sections
 import MostViewed from "@/components/homepage/MostViewed";
 import Hero from "@/components/homepage/Hero";
-import LatestArticles from "@/components/homepage/LatestArticles";
+
+// Components
+import NavbarComponent from "@/components/NavbarComponent";
+import FooterComponent from "@/components/FooterComponent";
 
 export default function Home() {
   return (

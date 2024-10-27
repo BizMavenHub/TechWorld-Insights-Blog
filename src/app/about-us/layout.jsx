@@ -1,9 +1,4 @@
 import localFont from "next/font/local";
-import "./globals.css";
-
-// Components
-import NavbarComponent from "@/components/NavbarComponent";
-import FooterComponent from "@/components/FooterComponent";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -17,9 +12,10 @@ import FooterComponent from "@/components/FooterComponent";
 // });
 
 export const metadata = {
-  title: "TechWorld Insights",
-  description: "Welcome to TechWorld Insights. All rights reserved",
-  keywords: ["tech", "world", "insights", "blog"],
+  title: "TechWorld Insights - About Us",
+  description:
+    "Discover the latest insights, tutorials, and tech news from our expert contributors.",
+  keywords: ["tech", "world", "insights", "blog", "insights", "blogging"],
   robots: "index, follow",
 };
 
