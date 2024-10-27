@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Shield, Search, User, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -82,18 +83,18 @@ export default function NavbarComponent() {
             </div>
           ) : (
             <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                className="flex items-center text-sm text-gray-700 hover:text-gray-800 border-indigo-500 border-2 hover:bg-indigo-50"
+              <a
+                href="/login"
+                className="flex items-center text-sm text-gray-700 hover:text-gray-800 border-indigo-500 border-2 hover:bg-indigo-50 h-10 px-5 rounded-lg"
               >
                 Login
-              </Button>
-              <Button
-                variant="ghost"
-                className="flex items-center text-sm text-white bg-indigo-500 hover:bg-indigo-700"
+              </a>
+              <a
+                href="/sign-up"
+                className="flex items-center text-sm text-white bg-indigo-500 hover:bg-indigo-700 px-5 h-10 rounded-lg"
               >
                 Sign Up
-              </Button>
+              </a>
             </div>
           )}
         </div>
