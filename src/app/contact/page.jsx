@@ -48,16 +48,9 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="w-[15vw] m-auto ">
-            <Card className="p-6 text-center bg-gray-100">
-              <Mail className="h-8 w-8 mx-auto mb-4" />
-              <h3 className="font-semibold mb-2">Email Us</h3>
-              <p className="">contact@techworld.com</p>
-            </Card>
-          </div>
-
-          <Card className="max-w-2xl mx-auto bg-gray-100">
+          <Card className="w-[35vw] mx-auto ">
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
+              <h2 className="text-2xl font-medium mb-4">Send us a Message</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
@@ -106,7 +99,7 @@ export default function ContactPage() {
                 <Textarea
                   id="message"
                   name="message"
-                  rows={6}
+                  rows={12}
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -114,7 +107,10 @@ export default function ContactPage() {
               </div>
 
               <div className="flex justify-center">
-                <Button type="submit" className="w-[10vw] hover:bg-gray-200">
+                <Button
+                  type="submit"
+                  className="w-[15vw] bg-gray-800 text-white hover:bg-gray-700"
+                >
                   Send Message
                 </Button>
               </div>
