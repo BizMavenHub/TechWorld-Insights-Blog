@@ -24,7 +24,7 @@ export default function NavbarComponent() {
               className="w-14 h-14 "
             />
             <span className="ml-2 text-xl font-bold text-gray-900">
-              TechWorld Insights
+              TechWorld Insight
             </span>
           </a>
 
