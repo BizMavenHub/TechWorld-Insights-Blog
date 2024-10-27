@@ -1,15 +1,22 @@
 import React from "react";
 
-import { Input } from "@/components/ui/input";
+import Form from "next/form";
 
 import { Search } from "lucide-react";
 
 const InputField = () => {
   return (
-    <div className="relative w-full md:w-[300px]">
-      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-      <Input placeholder="Search articles..." className="pl-8" />
-    </div>
+    <Form action="/articles">
+      <div className="relative w-full md:w-[300px]">
+        <Search className="absolute right-4 top-3.5 h-4 w-4 text-muted-foreground" />
+        <input
+          className="search-input py-2 px-3 w-full border-2 rounded-lg"
+          type="text"
+          name="query"
+          placeholder="Search..."
+        />
+      </div>
+    </Form>
   );
 };
 
