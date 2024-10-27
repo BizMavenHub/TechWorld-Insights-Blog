@@ -52,7 +52,7 @@ export default function ContactPage() {
             <Card className="p-6 text-center bg-gray-100">
               <Mail className="h-8 w-8 mx-auto mb-4" />
               <h3 className="font-semibold mb-2">Email Us</h3>
-              <p className="">contact@techstack.com</p>
+              <p className="">contact@techworld.com</p>
             </Card>
           </div>
 
