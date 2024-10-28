@@ -8,8 +8,6 @@ import { useUser, UserButton } from "@clerk/nextjs";
 export default function NavbarComponent() {
   const { isSignedIn, user } = useUser();
 
-  console.log(user);
-
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
