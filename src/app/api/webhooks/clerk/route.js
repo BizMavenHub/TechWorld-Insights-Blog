@@ -77,7 +77,7 @@ export async function POST(req) {
 
     const newUser = await createUser(userObject);
 
-    console.log("New user created:", newUser);
+    return new Response("Successfully created new user");
     // You can also send a response to the Clerk API or perform other actions based on the event data.
     // For example, you can send a welcome email or update user data in your own database.
     // Make sure to handle any potential errors or exceptions appropriately.
