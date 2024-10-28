@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
+
 // Components
 import NavbarComponent from "@/components/NavbarComponent";
 import FooterComponent from "@/components/FooterComponent";
@@ -25,11 +27,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="shortcut icon" href="techworld-logo.png" type="png" />
-      </head>
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <link rel="shortcut icon" href="techworld-logo.png" type="png" />
+        </head>
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

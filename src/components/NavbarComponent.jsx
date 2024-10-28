@@ -1,17 +1,15 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { Shield, Search, User, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const isSignIn = false;
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export default function NavbarComponent() {
+  const { isSignedIn, user } = useUser();
+
+  console.log(user);
+
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,36 +55,25 @@ export default function NavbarComponent() {
           </div>
 
           {/* User account dropdown */}
-          {isSignIn ? (
+          {isSignedIn ? (
             <div className="flex items-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center text-sm text-gray-700 hover:text-gray-800"
-                  >
-                    <User
-                      className="h-6 w-6 text-gray-400"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-1">{`{ Username }`}</span>
-                    <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuItem>Sign out</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="mr-3">
+                <Link
+                  href="/profile"
+                  className="text-sm text-gray-900 hover:text-gray-700"
+                >
+                  {user.primaryEmailAddress.emailAddress}
+                </Link>
+              </div>
+              <UserButton className="w-10 h-10 rounded-full" />
             </div>
           ) : (
             <div className="flex items-center gap-4">
               <Link
-                href="/login"
+                href="/sign-in"
                 className="flex items-center text-sm text-gray-700 hover:text-gray-800 border-indigo-500 border-2 hover:bg-indigo-50 h-10 px-5 rounded-lg"
               >
-                Login
+                Sign In
               </Link>
               <Link
                 href="/sign-up"
