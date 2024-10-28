@@ -61,7 +61,7 @@ export async function POST(req) {
     const { id, email_addresses, username, image_url, password_enabled } =
       evt.data;
 
-    if (!id || !emailAddresses) {
+    if (!id || !email_addresses) {
       return new Response("Error occurred -- missing data", { status: 400 });
     }
 
