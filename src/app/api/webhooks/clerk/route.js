@@ -57,6 +57,8 @@ export async function POST(req) {
   // For this guide, you simply log the payload to the console
   const eventType = evt.type;
 
+  console.log("Received event:", eventType, evt.data);
+
   // Create a new user object and add it to the db
   if (eventType === "user.created") {
     const { id, email_addresses, username, image_url, password_enabled } =
@@ -117,7 +119,7 @@ export async function POST(req) {
 
     await deleteUser(id);
 
-    return new Response("Successfully deleted user");
+    return new Response("Successfully deleted user", { status: 200 });
   }
 
   return new Response("", { status: 200 });
