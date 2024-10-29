@@ -14,7 +14,7 @@ export async function createUser(user) {
 export async function updateUser(user) {
   try {
     ConnectDB();
-    const user = await User.find({ clerkUserId: user.clerkUserId });
+    const user = await User.find(user.id);
 
     if (!user) return "User not found";
 
