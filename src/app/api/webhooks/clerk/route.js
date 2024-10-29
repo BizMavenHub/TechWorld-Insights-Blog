@@ -45,7 +45,7 @@ export async function POST(req) {
     });
   } catch (err) {
     console.error("Error verifying webhook:", err);
-    return new Response("Error occured", {
+    return new Response("Error:", {
       status: 400,
     });
   }
@@ -53,8 +53,6 @@ export async function POST(req) {
   // Do something with the payload
   // For this guide, you simply log the payload to the console
   const eventType = evt.type;
-
-  console.log("Received event:", eventType, evt.data);
 
   // Create a new user object and add it to the db
   if (eventType === "user.created") {
@@ -120,4 +118,8 @@ export async function POST(req) {
   }
 
   return new Response("", { status: 200 });
+}
+
+export async function GET(req, res) {
+  return new Response("HELLO WORLD!");
 }
