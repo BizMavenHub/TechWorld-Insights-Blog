@@ -7,9 +7,9 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET =
-    process.env.STATUS === "production"
-      ? process.env.WEBHOOK_SECRET
-      : process.env.WEBHOOK_SECRET_DEVELOPMENT;
+    process.env.STATUS === "development"
+      ? process.env.WEBHOOK_SECRET_DEVELOPMENT
+      : process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
