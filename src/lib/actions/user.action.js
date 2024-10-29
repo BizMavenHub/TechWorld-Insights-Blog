@@ -14,7 +14,7 @@ export async function createUser(user) {
 export async function updateUser(user) {
   try {
     ConnectDB();
-    const user = await User.find(user.clerkUserId);
+    const user = await User.find(user.id);
 
     if (!user) return "User not found";
 
@@ -29,8 +29,8 @@ export async function updateUser(user) {
 export async function deleteUser(clerkUserId) {
   try {
     ConnectDB();
-    await User.findByIdAndDelete(clerkUserId);
-    return "User deleted successfully";
+    await User.findByIdAndDelete({ clerkUserId: clerkUserId });
+    return JSON.parse("User deleted successfully");
   } catch (error) {
     console.log(error);
   }
