@@ -5,10 +5,11 @@ import { headers } from "next/headers";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 
 export async function POST(req) {
-  console.log(process.env.STATUS);
-
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOK_SECRET =
+    process.env.STATUS === "production"
+      ? process.env.WEBHOOK_SECRET_PRODUCTION
+      : process.env.WEBHOOK_SECRET_DEVELOPMENT;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
