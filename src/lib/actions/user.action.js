@@ -11,10 +11,10 @@ export async function createUser(user) {
   }
 }
 
-export async function updateUser(user) {
+export async function updateUser(userObj) {
   try {
     ConnectDB();
-    const user = await User.find(user.id);
+    const user = await User.find(userObj.clerkUserId);
 
     if (!user) return "User not found";
 
@@ -29,7 +29,7 @@ export async function updateUser(user) {
 export async function deleteUser(clerkUserId) {
   try {
     ConnectDB();
-    await User.findByIdAndDelete({ clerkUserId: clerkUserId });
+    await User.findByIdAndDelete(clerkUserId);
     return JSON.parse("User deleted successfully");
   } catch (error) {
     console.log(error);
