@@ -4,7 +4,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 
 // Actions
-import { createUser } from "@/lib/actions/user.action";
+import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -54,14 +54,14 @@ export async function POST(req) {
 
   // Do something with the payload
   // For this guide, you simply log the payload to the console
-  const { id } = evt.data;
   const eventType = evt.type;
 
+  // Create a new user object and add it to the db
   if (eventType === "user.created") {
     const { id, email_addresses, username, image_url, password_enabled } =
       evt.data;
 
-    if (!id || !emailAddresses) {
+    if (!id || !email_addresses) {
       return new Response("Error occurred -- missing data", { status: 400 });
     }
 
@@ -77,10 +77,46 @@ export async function POST(req) {
 
     const newUser = await createUser(userObject);
 
-    console.log("New user created:", newUser);
-    // You can also send a response to the Clerk API or perform other actions based on the event data.
-    // For example, you can send a welcome email or update user data in your own database.
-    // Make sure to handle any potential errors or exceptions appropriately.
+    if (!newUser) return new Response("Error: Failed to create");
+
+    return new Response("Successfully created new user");
+  }
+
+  // Update user in db
+  if (eventType.type === "user.updated") {
+    const { id, email_addresses, username, image_url, password_enabled } =
+      evt.data;
+
+    if (!id) {
+      return new Response("Id is not found", { status: 400 });
+    }
+
+    const userObject = {
+      clerkUserId: id,
+      username: username,
+      email: email_addresses[0].email_address,
+      passwordEnabled: password_enabled,
+      profileImage: image_url,
+      emailVerified:
+        email_addresses[0].verification.status === "verified" ? true : false,
+    };
+
+    const updatedUser = await updateUser(userObject);
+
+    if (!updatedUser) return new Response("Error: Failed to update");
+
+    return new Response("Successfully updated user");
+  }
+
+  // Delete user from db
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
+
+    if (!id) return new Response("Id is not found");
+
+    await deleteUser(id);
+
+    return new Response("Successfully deleted user");
   }
 
   return new Response("", { status: 200 });
