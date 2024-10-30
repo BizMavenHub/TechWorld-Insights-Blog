@@ -10,7 +10,7 @@ export default function FooterComponent() {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <img
-                  src="./techworld-logo.png"
+                  src="techworld-logo.png"
                   className="h-12 w-12"
                   alt="	icon image of techworld insights"
                 />

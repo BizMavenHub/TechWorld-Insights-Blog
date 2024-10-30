@@ -15,7 +15,7 @@ export default function NavbarComponent() {
           {/* Logo and site name */}
           <Link href="/" className="flex-shrink-0 flex items-center">
             <img
-              src="./techworld-logo.png"
+              src="techworld-logo.png"
               alt="icon image of techworld insights"
               className="w-14 h-14 "
             />
