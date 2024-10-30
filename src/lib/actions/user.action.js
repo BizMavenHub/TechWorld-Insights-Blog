@@ -1,11 +1,11 @@
-import User from "@/lib/mongodb/schema/user.schema";
+import { User } from "@/lib/mongodb/schema/user.schema";
 import { ConnectDB } from "@/lib/mongodb/db"; // Connect MongoDB
 
 export async function createUser(user) {
   try {
-    ConnectDB();
+    await ConnectDB();
     const newUser = await User.create(user);
-    return JSON.parse(JSON.stringify(newUser));
+    return { user: newUser };
   } catch (error) {
     console.log(error);
   }
@@ -13,12 +13,16 @@ export async function createUser(user) {
 
 export async function updateUser(userObj) {
   try {
-    ConnectDB();
-    const user = await User.find(userObj.clerkUserId);
+    await ConnectDB();
+    console.log(userObj);
+
+    const user = await User.find({ clerkUserId: userObj.clerkUserId });
+
+    console.log(user);
 
     if (!user) return "User not found";
 
-    await User.update(user);
+    await User.updateOne(userObj);
 
     return "User updated successfully";
   } catch (error) {
@@ -28,9 +32,9 @@ export async function updateUser(userObj) {
 
 export async function deleteUser(clerkUserId) {
   try {
-    ConnectDB();
-    await User.findByIdAndDelete(clerkUserId);
-    return JSON.parse("User deleted successfully");
+    await ConnectDB();
+    await User.deleteOne({ clerkUserId });
+    return "User deleted successfully";
   } catch (error) {
     console.log(error);
   }

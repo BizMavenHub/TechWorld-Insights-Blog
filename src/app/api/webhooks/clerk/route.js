@@ -6,7 +6,7 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -45,7 +45,7 @@ export async function POST(req) {
     });
   } catch (err) {
     console.error("Error verifying webhook:", err);
-    return new Response("Error:", {
+    return new Response("Error occured", {
       status: 400,
     });
   }
@@ -54,67 +54,68 @@ export async function POST(req) {
   // For this guide, you simply log the payload to the console
   const eventType = evt.type;
 
-  // Create a new user object and add it to the db
+  // Create User
   if (eventType === "user.created") {
-    const { id, email_addresses, username, image_url, password_enabled } =
+    const { id, username, image_url, email_addresses, password_enabled } =
       evt.data;
 
-    if (!id || !email_addresses) {
-      return new Response("Error occurred -- missing data", { status: 400 });
-    }
+    if (!id) return new Response("ID is not found", { status: 404 });
 
-    const userObject = {
+    const newUserObj = {
       clerkUserId: id,
       username: username,
+      profileImage: image_url,
       email: email_addresses[0].email_address,
       passwordEnabled: password_enabled,
-      profileImage: image_url,
       emailVerified:
         email_addresses[0].verification.status === "verified" ? true : false,
     };
 
-    const newUser = await createUser(userObject);
+    const newUser = await createUser(newUserObj);
 
-    if (!newUser) return new Response("Error: Failed to create");
-
-    return new Response("Successfully created new user");
+    return new Response("Successfully created user", {
+      status: 200,
+      user: newUser,
+    });
   }
 
-  // Update user in db
-  if (eventType.type === "user.updated") {
-    const { id, email_addresses, username, image_url, password_enabled } =
+  // Update User
+  if (eventType === "user.updated") {
+    const { id, username, image_url, email_addresses, password_enabled } =
       evt.data;
 
-    if (!id) {
-      return new Response("Id is not found", { status: 400 });
-    }
+    if (!id) return new Response("ID is not found", { status: 404 });
 
-    const userObject = {
+    const updatedUserObj = {
       clerkUserId: id,
       username: username,
+      profileImage: image_url,
       email: email_addresses[0].email_address,
       passwordEnabled: password_enabled,
-      profileImage: image_url,
       emailVerified:
         email_addresses[0].verification.status === "verified" ? true : false,
     };
 
-    const updatedUser = await updateUser(userObject);
+    const updatedUser = await updateUser(updatedUserObj);
 
-    if (!updatedUser) return new Response("Error: Failed to update");
-
-    return new Response("Successfully updated user");
+    return new Response("Successfully updated user", {
+      status: 200,
+      user: updatedUser,
+    });
   }
 
-  // Delete user from db
+  // Delete User
   if (eventType === "user.deleted") {
     const { id } = evt.data;
 
-    if (!id) return new Response("Id is not found");
+    if (!id) return new Response("ID is not found", { status: 404 });
 
-    await deleteUser(id);
+    const deletedUser = await deleteUser(id);
 
-    return new Response("Successfully deleted user", { status: 200 });
+    return new Response("Successfully deleted user", {
+      status: 200,
+      user: deletedUser,
+    });
   }
 
   return new Response("", { status: 200 });
